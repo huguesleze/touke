@@ -1,3 +1,13 @@
+Google Maps API key required : 
+- Add a .env.local file to add a GOOGLE_MAPS_API_KEY
+- Add to gitignore the .env.local API key
+
+Spotify API :
+- Add to gitignore 
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
