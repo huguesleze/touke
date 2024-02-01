@@ -245,6 +245,13 @@ body {
 
 /* styles.css */
 
+.car-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
 .carpool-container {
   margin-top: 20px;
   display: flex;
@@ -256,7 +263,8 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
-  margin-top: 10px;
+  margin-left: 16px;
+  margin-top: 16px;
   width: 80%; /* Adjust width as needed */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -273,7 +281,8 @@ body {
   text-align: center;
   background-color: #4CAF50; /* Different color for driver */
   color: white;
-  margin-right: 10px;
+  margin-left: 16px;
+  margin-right: 16px;
   margin-bottom: 10px;
   position: relative; /* Relative positioning for absolute positioning 
 : #4CAF50; /* Different color for driver */
@@ -285,6 +294,15 @@ body {
 
 .car-carpooler {
   background-color: #084298;
+}
+.add-carpooler-button {
+  cursor: pointer;
+  background-color: #f0f0f0; /* Light grey color to indicate it's a button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #4CAF50; /* Primary color */
 }
 
 
@@ -309,6 +327,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
+  margin-left: 16px;
 }
 
 /* Delete button styles */

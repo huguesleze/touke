@@ -134,23 +134,28 @@ export default function EventSummary() {
   
 const addCarpooler = (carIndex: number): void => {
   const carpoolerName = carpoolerInputs[carIndex] || "";
-  const selectedCar = cars[carIndex];
-  if (carpoolerName && selectedCar.availableSeats() > 0) {
-    const updatedCars: Car[] = [...cars];
-    const selectedCar: Car = updatedCars[carIndex];
+  if (!carpoolerName) {
+    alert('Please enter a carpooler name.');
+    return;
+  }
 
-    if (!selectedCar.carpoolers.includes(carpoolerName)) {
-      selectedCar.carpoolers.push(carpoolerName);
-      setCars(updatedCars);
-      // Clear the carpooler input for this car
-      setCarpoolerInputs({ ...carpoolerInputs, [carIndex]: '' });
-    } else {
-      alert('This carpooler has already joined.');
-    }
+  // Check if carpooler is already in any car
+  const isCarpoolerAlreadyAdded = cars.some(car => car.carpoolers.includes(carpoolerName));
+  if (isCarpoolerAlreadyAdded) {
+    alert('This carpooler has already joined another car.');
+    return;
+  }
+
+  const selectedCar = cars[carIndex];
+  if (selectedCar.availableSeats() > 0) {
+    selectedCar.carpoolers.push(carpoolerName);
+    setCars([...cars]); // Update the state to trigger a re-render
+    setCarpoolerInputs({ ...carpoolerInputs, [carIndex]: '' }); // Clear the input for this car
   } else {
-    alert('No carp name or no available seats or invalid carpooler name.');
+    alert('No available seats in this car.');
   }
 };
+
 
   
 
@@ -218,20 +223,27 @@ const addCarpooler = (carIndex: number): void => {
     {/* Display cars only if there are any */}
     {cars.map((car, carIndex) => (
       <div key={carIndex} className="car-card">
+      <div className="car-container">
         <div className="car-driver">
           {car.driver}
           <span className="delete-button" onClick={() => deleteCar(carIndex)}>D</span>
         </div>
         <div className="car details">
-          Seats: {car.seats} (Available: {car.availableSeats()})
+          Seats: {car.seats} (Now: {car.availableSeats()})
           </div>
-        {/* Carpoolers and input to add carpooler */}
+        {/* Carpoolers and input to join a car */}
         {car.carpoolers.map((carpooler, carpoolerIndex) => (
           <div key={carpoolerIndex} className="car-carpooler">
             {carpooler}
             <span className="delete-button" onClick={() => deleteCarpooler(carIndex, carpoolerIndex)}>D</span>
           </div>
         ))}
+             {[...Array(car.availableSeats())].map((_, index) => (
+        <div key={index} className="car-carpooler add-carpooler-button" onClick={() => addCarpooler(carIndex)}>
+          +
+        </div>
+      ))} 
+        </div>
         {car.availableSeats() > 0 && (
         <div className="add-carpooler-input">
           <input 
@@ -241,7 +253,7 @@ const addCarpooler = (carIndex: number): void => {
             onChange={(e) => handleCarpoolerInputChange(carIndex, e.target.value)}
             //onChange={(e) => setNewCarpoolerName(e.target.value)} 
           />
-          <button onClick={() => addCarpooler(carIndex)}>Add Carpooler</button>
+          <button onClick={() => addCarpooler(carIndex)}>Join car</button>
         </div>
         )}
       </div>
